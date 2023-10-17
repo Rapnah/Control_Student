@@ -10,33 +10,38 @@ int choose;
 //function
 void main()
 {
-	
-	cout << "****Menu Select****";
-	//cout << "1.1 Add Student"; 
-	cout << "1. Update Student";
-	//cout << "1.2 Remove Student";
-	cout << "2. Search Student";
-	//cout << "2.1 Search Student by Name";
-	//cout << "2.2 Search Student by ID";
-	cout << "3. Sort Student";
-	//cout << "3.1 Sort Student by GPA";
-	//cout << "3.2 Sort Student by Name";
-	cout << "4. Table view Student";
-	cout << "5. Export File Control Student";
-	cin >> choose;
-	switch (choose)
+	do
 	{
-	case 1:
-		cout << "Add Student";
-		cout << "Remove Student";
-		cout << "Exit";
+		cout << "****Menu Select****\n"; 
+		cout << "1. Update Student\n";
+		cout << "2. Search Student\n";
+		cout << "3. Sort Student\n";
+		cout << "4. Table view Student\n";
+		cout << "5. Export File Control Student\n";
 		cin >> choose;
-		break;
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-	default:
-		break;
+		switch (choose)
+		{
+		case 1:
+			cout << "1. Add Student\n";
+			cout << "2. Remove Student\n";
+			cout << "3. Exit\n";
+			cin >> choose;
+			break;
+		case 2:
+			cout << "1. Search Student by Name\n";
+			cout << "2. Search Student by ID\n";
+			cout << "3. Exit\n";
+			cin >> choose;
+			break;
+		case 3:
+			cout << "1. Sort Student by GPA\n";
+			cout << "2. Sort Student by Name\n";
+			cout << "3. Exit\n"
+				cin >> choose;
+		case 4:
+		case 5:
+		default:
+			break;
+		}
 	}
 }
