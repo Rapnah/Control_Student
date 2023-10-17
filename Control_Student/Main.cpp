@@ -37,7 +37,7 @@ void main()
 			cout << "1. Sort Student by GPA\n";
 			cout << "2. Sort Student by Name\n";
 			cout << "3. Exit\n"
-				cin >> choose;
+			cin >> choose;
 		case 4:
 		case 5:
 		default:
