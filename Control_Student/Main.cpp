@@ -1,10 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <iostream>
 
 using namespace std;
 
-//varible
+//variable
 int choose;
 
 //function
@@ -28,6 +26,15 @@ void main()
 				cout << "2. Remove Student\n";
 				cout << "3. Exit\n";
 				cin >> choose;
+				switch (choose)
+				{
+				case 1:
+					break;
+				case 2:
+					break;
+				default:
+					break;
+				}
 			} while (choose != 3);
 			break;
 		case 2:
@@ -37,6 +44,15 @@ void main()
 				cout << "2. Search Student by ID\n";
 				cout << "3. Exit\n";
 				cin >> choose;
+				switch (choose)
+				{
+				case 1:
+					break;
+				case 2:
+					break;
+				default:
+					break;
+				}
 			} while (choose != 3);
 			break;
 		case 3:
@@ -46,6 +62,15 @@ void main()
 				cout << "2. Sort Student by Name\n";
 				cout << "3. Exit\n";
 				cin >> choose;
+				switch (choose)
+				{
+				case 1:
+					break;
+				case 2:
+					break;
+				default:
+					break;
+				}
 			} while (choose != 3);
 		case 4:
 		case 5:
