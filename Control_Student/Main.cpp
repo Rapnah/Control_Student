@@ -1,4 +1,6 @@
 #include <iostream>
+#include "Class_Student.h"
+#include "Class_Menu.h"
 
 using namespace std;
 
@@ -10,12 +12,7 @@ void main()
 {
 	do
 	{
-		cout << "****Menu Select****\n"; 
-		cout << "1. Update Student\n";
-		cout << "2. Search Student\n";
-		cout << "3. Sort Student\n";
-		cout << "4. Table view Student\n";
-		cout << "5. Export File Control Student\n";
+
 		cin >> choose;
 		switch (choose)
 		{
@@ -24,7 +21,8 @@ void main()
 			{
 				cout << "1. Add Student\n";
 				cout << "2. Remove Student\n";
-				cout << "3. Exit\n";
+				cout << "3. Update Student\n";
+				cout << "Using \"Exit\" or \"EXIT\" for exit\n";
 				cin >> choose;
 				switch (choose)
 				{
