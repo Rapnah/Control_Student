@@ -5,6 +5,8 @@
 #include <cctype>
 #include <sstream>
 #include "Class_Student.h"
+#include <cstdint>
+
 
 class Menu
 {
@@ -22,8 +24,8 @@ public:
 	void showliststudent();
 	void exportlist();
 private:
-	std::vector<Student> _list_student;
-	static uint8_t  _num_student;
+	vector<student> _list_student;
+	uint8_t _num_student;
 	int _checkgender(const char* gender);
 	int _checkgpa(uint8_t _gpa);
 };

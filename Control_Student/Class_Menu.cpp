@@ -1,4 +1,7 @@
 #include "Class_Menu.h"
+#include <string.h>
+#include <algorithm>
+#include <fstream>
 
 using namespace std;
 
@@ -6,20 +9,9 @@ using namespace std;
 	cout << "\ID\t NAME\t\t GENDER\t DATE OF BRITH\t\t\t GPA\t\n";\
 	for (int index = 0; index < list_student.size(); index++)\
 		{\
-			cout << "\t" << list_student[index].getID() << "\t\t"<< list_student[index].getName() << "\t\t\t" << list_student[index].getBrith() << "\t" << list_student[index].getGPA() ;\
+			cout << "\t" << list_student[index].getID() << "\t\t"<< list_student[index].getName() << "\t\t\t" << list_student[index].getBirth() << "\t" << list_student[index].getGPA() ;\
 		}\
 	cout << "\n";
-
-//#define ENTER_INFO(info,script,statement)\
-//	do\
-//	{\
-//		std::cout << info; \
-//		std::cin >> script);\
-//		if (checkexit(script)==1)\
-//		{\
-//			return;\
-//		}\
-//	} while (statement);
 
 int Menu::checkexit(const char* str)// function for exit in menu
 {
@@ -55,7 +47,7 @@ void Menu::showlistmenu()
 
 void Menu::addstudent()
 {
-	Student sv;
+	student sv;
 	char scanf_str[50];
 	double mark = 0.0;
 	uint8_t day = 0, month = 0, year = 0;
@@ -79,7 +71,7 @@ void Menu::addstudent()
 		cin >> month;
 		cout << "Add Year: \n";
 		cin >> year;
-		sv.setBrith(day,month,year);
+		sv.setBirth(day,month,year);
 
 		cout << "Add GPA: \n";
 		cout << "Using \"Exit\" or \"EXIT\" for exit\n";
@@ -120,7 +112,7 @@ void Menu::removestudent()
 				if (clear_yet == 1)
 				{
 					new_ID = _list_student[i].getID() - 1;
-					_list_student[new_ID].getID();//test function
+					_list_student[i].setID(new_ID);//test function
 				}
 				if (clear_yet == 0)
 				{
@@ -130,33 +122,204 @@ void Menu::removestudent()
 	}
 }
 
-void Menu::updatestudent()
+void Menu::updatestudent()//search ID update name,birth,gpa,gender 
 {
+	static student sv; // using id in static class Student
+	uint8_t index = 0;
+	uint8_t month = 0, day = 0 , year = 0;
+	uint8_t id = 0;
+	double gpa = 0.0;
+	char gender[20];
+	uint8_t check_id = 0;
+	char scanf_str[50];
+	int choose = 0;
+	//check table if empty print no student
+	if (_list_student.empty())
+	{
+		cout << "List student is empty";
+		return;
+	}
+	while (1) // loop check id and update student
+	{
+		//check ID input
+		if (check_id == 0)
+		{
+			cout << "Input ID for update: ";
+			cin >> id;
+
+			for (int i = 0; i < _list_student.size(); i++)
+			{
+				if (_list_student[i].getID() == id)
+				{
+					sv = _list_student[i];
+					index = i;
+					check_id = 1;
+				}
+			}
+
+			if (check_id == 0)
+			{
+				cout << "ID hadn't used";
+			}
+		}
+		else if (check_id == 1)
+		{
+			cout << "***List Update***\n";
+			cout << "1. Update Name\n";
+			cout << "2. Update Gender\n";
+			cout << "3. Update Birth\n";
+			cout << "4. Update GPA\n";
+			cout << "5. Done Update\n";
+			cout << "Using \"Exit\" or \"EXIT\" for exit\t\t";
+			cout << "Input: ";
+			cin >> choose;
+
+			switch (choose)
+			{
+			case 1:
+				cout << "Input new name:\t";
+				cin >> scanf_str;
+				sv.setName(scanf_str);
+				break;
+			case 2:
+				cout << "Input new Gender:\t";
+				cin >> gender;
+				sv.setGender(gender);
+				break;
+			case 3:
+				cout << "Input new Birth:\n";
+				cout << "Input new Day:\t";
+				cin >> day;
+				cout << "\nInput new Month:\t";
+				cin >> month;
+				cout << "\nInput new Year:\t";
+				cin >> year;
+				sv.setBirth(day, month, year);
+				break;
+			case 4:
+				cout << "\nInput new GPA:\t";
+				cin >> gpa;
+				sv.setGPA(gpa);
+				break;
+			case 5:
+				cout << "\nDone update for student.\n"<<sv.getID();
+				check_id = 0;
+				_list_student[index] = sv;
+				break;
+			default:
+				break;
+			}
+
+		}
+	}
 }
 
 void Menu::searchstudentbyname()
 {
+	uint8_t check_name = 0;
+	char scanf_char[50];
+	cout << "Input Name:\t";
+	cin >> scanf_char;
+	for (int i = 0; i < _list_student.size(); i++)
+	{
+		if (strcmp(_list_student[i].getName(), (const char*)scanf_char) == 0)
+		{
+			cout << "ID\t Name\t\t Gender\t Date of Birth\t\t\t GPA\t\n";
+			cout << "\t" << _list_student[i].getID() << "\t\t" << _list_student[i].getGender() << "\t\t\t" << _list_student[i].getBirth() << "\t\n" << _list_student[i].getGPA();
+			check_name = 1;
+		}
+	}
+	if (check_name == 0)
+		cout << "Name isn't in list.\n";
 }
 
 void Menu::searchstudentbygpa()
 {
+	uint8_t check_GPA = 0;
+	double gpa = 0.0;
+	cout << "Input GPA:\t";
+	cin >> gpa;
+	for (int i = 0; i < _list_student.size(); i++)
+	{
+		if (_list_student[i].getGPA() == gpa)
+		{
+			cout << "ID\t Name\t\t Gender\t Date of Birth\t\t\t GPA\t\n";
+			cout << "\t" << _list_student[i].getID() << "\t\t" << _list_student[i].getGender() << "\t\t\t" << _list_student[i].getBirth() << "\t\n" << _list_student[i].getGPA();
+			check_GPA = 1;
+		}
+	}
+	if (check_GPA == 0)
+		cout << "GPA isn't in list.\n";
 }
 
-void Menu::sortstudentbyname()
+void Menu::sortstudentbyname()//find way use sort in lib
 {
+	if (_list_student.empty())
+	{
+		cout << "List didn't cerate";
+		return;
+	}
+	vector<student> list_sortbyname;
+	list_sortbyname = _list_student;
+	student sv;
+	for (int i = 0; i < list_sortbyname.size() - 1; i++) 
+	{ 
+		for (int j = i + 1; j < list_sortbyname.size(); j++) 
+		{ 
+			if (strcmp(list_sortbyname[i].getName(), list_sortbyname[j].getName()) > 0)
+			{
+				sv = list_sortbyname[i];
+				list_sortbyname[i] = list_sortbyname[j];
+				list_sortbyname[j] = sv;
+			}
+		}
+	}
+	SHOW_INFO(index, list_sortbyname);
 }
 
 void Menu::sortstudentbygpa()
 {
+	if(_list_student.empty())
+	{
+		cout << "List didn't cerate";
+		return;
+	}
+	vector<student> list_sortbygpa;
+	list_sortbygpa = _list_student;
+	student sv;
+	for (int i = 0; i < list_sortbygpa.size() - 1; i++)
+	{
+		for (int j = i + 1; j < list_sortbygpa.size(); j++)
+		{
+			if (list_sortbygpa[i].getGPA() > list_sortbygpa[j].getGPA())
+			{
+				sv = list_sortbygpa[i];
+				list_sortbygpa[i] = list_sortbygpa[j];
+				list_sortbygpa[j] = sv;
+			}
+		}
+	}
+	SHOW_INFO(index, list_sortbygpa);
 }
 
 void Menu::showliststudent()
 {
+	SHOW_INFO(index, _list_student);
 }
 
 void Menu::exportlist()
 {
-
+	vector<student> list_exportstudent;
+	list_exportstudent = _list_student;
+	ofstream liststudent;
+	liststudent.open("student.txt");
+	liststudent << "\ID\t NAME\t\t GENDER\t DATE OF BRITH\t\t\t GPA\t\n"; \
+		for (int index = 0; index < list_exportstudent.size(); index++)\
+		{\
+			cout << "\t" << list_exportstudent[index].getID() << "\t\t" << list_exportstudent[index].getName() << "\t\t\t" << list_exportstudent[index].getBirth() << "\t" << list_exportstudent[index].getGPA(); \
+		}\
+			cout << "\n";
+	liststudent.close();
 }
 
 int Menu::_checkgender(const char* gender)// definr input only male,female,other
@@ -181,3 +344,5 @@ int Menu::_checkgpa(uint8_t _gpa) // check number input in range.
 	}
 	return _gpa;
 }
+
+	
