@@ -33,10 +33,12 @@ int main()
 				case 2:
 					mm.removestudent();
 					break;
+				case 3:
+					mm.updatestudent();
 				default:
 					break;
 				}
-			} while (choose != 3);
+			} while (choose != 4);
 			break;
 		case 2:
 			do

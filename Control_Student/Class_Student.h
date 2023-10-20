@@ -23,8 +23,8 @@ public:
 	uint8_t getBirth();
 private:
 	uint8_t _id;
-	char _name[20];
-	char _gender[4];
+	char _name[50];
+	char _gender[20];
 	double _GPA;
 	//date of brith
 	uint8_t _day;

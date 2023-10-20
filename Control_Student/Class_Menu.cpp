@@ -42,41 +42,45 @@ void Menu::showlistmenu()
 	cout << "3. Sort Student\n";
 	cout << "4. Table view Student\n";
 	cout << "5. Export File Control Student\n";
-	cout << "Using \"Exit\" or \"EXIT\" for exit";
+	cout << "Using \"Exit\" or \"EXIT\" for exit\t";
 }
 
 void Menu::addstudent()
 {
 	student sv;
 	char scanf_str[50];
+	//char gender[20];
 	double mark = 0.0;
 	uint8_t day = 0, month = 0, year = 0;
 	while (1)
 	{
-		cout << "Add Name: \n";
-		cout << "Using \"Exit\" or \"EXIT\" for exit\n";
+		cout << "Add Name:\t";
 		cin >> scanf_str;
 		sv.setName(scanf_str);
+		if (checkexit(scanf_str) == 1) { return; }
 
-		cout << "Add Gender: \n";
-		cout << "Using \"Exit\" or \"EXIT\" for exit\n";
-		cin >> scanf_str;
-		sv.setGender(scanf_str);
+		do
+		{
+			cout << "\nAdd Gender:\t";
+			cin >> scanf_str;
+			sv.setGender(scanf_str);
+			if (checkexit(scanf_str) == 1) { return; }
+		} while (_checkgender(scanf_str) == 0);
 
-		cout << "Add Day of Brith \n";
-		cout << "Using \"Exit\" or \"EXIT\" for exit\n";
-		cout << "Add Day: \n";
+		cout << "Add Day of Brith\n";
+		cout << "Add Day:\t";
 		cin >> day;//3 v
-		cout << "Add Month: \n";
+		cout << "Add Month:\t";
 		cin >> month;
-		cout << "Add Year: \n";
+		cout << "Add Year:\t";
 		cin >> year;
 		sv.setBirth(day,month,year);
+		if (checkexit(scanf_str) == 1) { return; }
 
-		cout << "Add GPA: \n";
-		cout << "Using \"Exit\" or \"EXIT\" for exit\n";
+		cout << "Add GPA:\t";
 		cin >> mark;
 		sv.setGPA(mark);
+		if (checkexit(scanf_str) == 1) { return; }
 
 		Menu::_num_student++;
 		sv.setID(Menu::_num_student);
@@ -184,6 +188,7 @@ void Menu::updatestudent()//search ID update name,birth,gpa,gender
 			case 2:
 				cout << "Input new Gender:\t";
 				cin >> gender;
+				_checkgender(gender);
 				sv.setGender(gender);
 				break;
 			case 3:
@@ -304,7 +309,12 @@ void Menu::sortstudentbygpa()
 
 void Menu::showliststudent()
 {
-	SHOW_INFO(index, _list_student);
+	cout << "\ID\tNAME\t\tGENDER\tDATE OF BRITH\tGPA\t\n"; \
+		for (int index = 0; index < _list_student.size(); index++)\
+		{\
+			cout << "\t" << _list_student[index].getID() << "\t\t" << _list_student[index].getName() << "\t\t\t" << _list_student[index].getBirth() << "\t" << _list_student[index].getGPA(); \
+		}\
+			cout << "\n";
 }
 
 void Menu::exportlist()

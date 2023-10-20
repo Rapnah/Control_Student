@@ -50,5 +50,7 @@ double student::getGPA()
 uint8_t student::getBirth()
 {
 	cout << "" << _day << "/" << _month << "/" << _year;
-	return _day, _month, _year;
+	return _day;
+	return _month; 
+	return _year;
 }
